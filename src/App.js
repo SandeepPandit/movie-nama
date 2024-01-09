@@ -41,7 +41,10 @@ export default function App() {
 
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
+            { signal: controller.signal },
+            {
+              referrerPolicy: "unsafe_url",
+            }
           );
 
           if (!res.ok)
