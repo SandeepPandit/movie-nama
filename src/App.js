@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "f84fc31d";
+const KEY = "c112e6f2";
 
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
@@ -43,6 +44,7 @@ export default function App() {
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal },
             {
+              // ...
               referrerPolicy: "unsafe_url",
             }
           );
